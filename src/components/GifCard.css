@@ -9,3 +9,7 @@
     /* border: 1px solid yellowgreen; */
     padding: 7px 0px;
 }
+
+#gif-id:hover{
+    transform: scale(1.2,1.2);
+}
