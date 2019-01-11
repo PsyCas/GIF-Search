@@ -1,4 +1,5 @@
 import React from "react";
+import "./GifCard.css"
 
 class GifCard extends React.Component{
 
@@ -10,21 +11,17 @@ class GifCard extends React.Component{
     //     }
     // }
     render(){
-        
-        console.log(this.props.isLoaded);
-        console.log("IN GIFCARD.GSX");
+
         let parseData = [];
-        if(this.props.isLoaded){
-            for (var i = 0; i<25; i++){
-                parseData[i] = this.props.gifs.data[i].images.fixed_height_downsampled.url;
-            }
+        for (var i = 0; i<25; i++){
+            parseData[i] = this.props.gifs.data[i].images.fixed_height_downsampled.url;
         }
 
         return(       
-            <div>
+            <div id="gif-wrapper">
                 {this.props.isLoaded? parseData.map((element) =>{ 
                     //console.log(element);
-                    return(<img src={element}></img>);
+                    return(<img id= "gif-id" src={element}></img>);
                 }): <div>Loading...</div>}
             </div>
 

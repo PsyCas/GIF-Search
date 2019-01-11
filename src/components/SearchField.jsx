@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import GifCard from "../components/GifCard";
+import "./SearchField.css"
 
 
-const KEY = "nKmONZgLQfDtKFUBIGGHAWB9JdjQcZxP";
+const KEY = `${process.env.REACT_APP_KEY}`;
 
 class SearchField extends React.Component{
 
@@ -13,24 +14,31 @@ class SearchField extends React.Component{
         this.state={
             gifs: this.props.gifs,
             searchTerm: "",
-            isLoaded: this.props.isLoaded
+            isLoaded: this.props.isLoaded,
         }
         this.fetchData = this.fetchData.bind(this);
+        this.resetState = this.resetState.bind(this);
+    }
+
+    resetState(){
+        this.setState({
+            gifs: this.props.gifs
+        });
     }
 
     fetchData(event){
-        
+
+        console.log("inside fetch data");
         event.preventDefault();
-        console.log(event.target.children[1].value);
-        const URL = `http://api.giphy.com/v1/gifs/search?q=${event.target.children[1].value}&api_key=${KEY}`;
-        axios.get(URL)
+        const url = `http://api.giphy.com/v1/gifs/search?q=${event.target.children[0].value}&api_key=${KEY}`;
+        
+        axios.get(url)
         .then(response => {
             
             this.setState({
                 gifs: response.data,
                 isLoaded: true,
             });
-            console.log(this.state.gifs.data[0].images.downsized.url);
         })
 
         .catch(err=>{
@@ -41,15 +49,15 @@ class SearchField extends React.Component{
     render(){
 
         return(
-            <div>
-                <button onClick={this.props.fetchTrendingData}>Trending GIFs</button>
-                <form onSubmit={this.fetchData}>
-                    <label>Search for a gif:</label>
-                    <input type="text"/>
-                    
-                </form>
-                
-                {this.state.isLoaded? (<GifCard gifs={this.state.gifs} isLoaded={this.state.isLoaded}/>): <div>Loading...</div>}
+            <div id = "main-body">
+                <div id="header-wrapper">
+                    <button id= "trending-button" onClick={this.resetState}>Trending</button>
+
+                    <form id="form-submit" onSubmit={this.fetchData}>
+                        <input id="form-input" type="text" placeholder="Search for awesomeness..."/>
+                    </form>
+                </div>
+                {this.state.isLoaded? (<GifCard gifs={this.state.gifs} isLoaded={this.state.isLoaded} isRandom={this.state.isRandom}/>): <div>Loading...</div>}
             </div>
         );
     }

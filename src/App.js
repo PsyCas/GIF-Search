@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from "axios";
 import SearchField from './components/SearchField';
-import GifCard from './components/GifCard';
 
-const KEY = "nKmONZgLQfDtKFUBIGGHAWB9JdjQcZxP";
+const KEY = `${process.env.REACT_APP_KEY}`;
+
 
 class App extends React.Component {
 
@@ -29,13 +29,13 @@ class App extends React.Component {
           gifs: response.data,
           isLoaded: true
         });
-        
-        console.log(this.state.gifs.data)
       })
 
       .catch(err=>{
         console.log(err);
       });
+
+      return
   }
 
   componentDidMount(){
@@ -44,8 +44,8 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
-        {this.state.isLoaded? <SearchField gifs={this.state.gifs} isLoaded={this.state.isLoaded} fetchTrendingData={this.fetchTrendingData}/>: <div>Loading</div>}
+      <div id="body-wrapper">
+        {this.state.isLoaded? <SearchField gifs={this.state.gifs} isLoaded={this.state.isLoaded}/>: <h1 id="loading-image">Loading...</h1>}
       </div>
     );
   }
