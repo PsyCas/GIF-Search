@@ -13,7 +13,7 @@ class GifCard extends React.Component{
     render(){
 
         let parseData = [];
-        for (var i = 0; i<25; i++){
+        for (var i = 0; i<this.props.gifs.data.length; i++){
             parseData[i] = this.props.gifs.data[i].images.fixed_height_downsampled.url;
         }
 
