@@ -1,9 +1,9 @@
 import React from "react";
-import axios from "axios";
-import GifCard from "../components/GifCard";
+import axios from "axios";  // makes calls to fetch api data
+import GifCard from "../components/GifCard";   
 import "./SearchField.css"
 
-
+// stores the api key for gify
 const KEY = `${process.env.REACT_APP_KEY}`;
 
 class SearchField extends React.Component{
@@ -19,13 +19,15 @@ class SearchField extends React.Component{
         this.fetchData = this.fetchData.bind(this);
         this.resetState = this.resetState.bind(this);
     }
-
+    
+    // refreshes the dom
     resetState(){
         this.setState({
             gifs: this.props.gifs
         });
     }
-
+    
+    // makes a get request to the api
     fetchData(event){
 
         console.log("inside fetch data");
